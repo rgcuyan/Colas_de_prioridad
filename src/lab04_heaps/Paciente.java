@@ -1,11 +1,11 @@
 package lab04_heaps;
 //Ruddy Cuyan - 1360324
 
-public class Pacientes {
+public class Paciente {
     private int urgencia, disponibilidad, medicamentos, edad, indice;
     private String nombre;
 
-    public Pacientes(int urgencia, int disponibilidad, int medicamentos, int edad, String nombre) {
+    public Paciente(int urgencia, int disponibilidad, int medicamentos, int edad, String nombre) {
         this.urgencia = urgencia;
         this.disponibilidad = disponibilidad;
         this.medicamentos = medicamentos;

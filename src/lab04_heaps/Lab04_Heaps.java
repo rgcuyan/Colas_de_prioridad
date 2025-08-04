@@ -7,14 +7,15 @@ public class Lab04_Heaps {
 
     //Variables globales
     private static Scanner leer = new Scanner(System.in);
-    private static PriorityQueue<Pacientes> pq = new PriorityQueue<>((a,b)->a.getIndice()-b.getIndice());
+    private static PriorityQueue<Paciente> pq = new PriorityQueue<>((a,b)->a.getIndice()-b.getIndice());
+    private static int pacientes = 0;
 
     //Metodos main
     public static void main(String[] args) {
         menu();
     }
 
-    public static void menu() {
+    private static void menu() {
         boolean repetir = true;
         do {
             System.out.println("");
@@ -23,15 +24,19 @@ public class Lab04_Heaps {
             int opcionMenu = leer.nextInt();
             leer.nextLine();
             switch (opcionMenu) {
-                case 1 ->
+                case 1:
                     agregarPacienteAlHeap();
-                case 0 ->
+                    verificar_cantidad_pacientes();
+                    break;
+                case 0:
                     repetir = false;
+                    break;
             }
+            
         } while (repetir);
     }
 
-    public static void agregarPacienteAlHeap() {
+    private static void agregarPacienteAlHeap() {
         System.out.println("");
         System.out.println("Entrando a agregarPaciente...");
         //variables
@@ -49,14 +54,36 @@ public class Lab04_Heaps {
         System.out.print("Ingrese los Medicamentos {1 - 3}: ");
         m = leer.nextInt();
         leer.nextLine();
-        System.out.print("Ingrese la Edad:");
+        System.out.print("Ingrese la Edad: ");
         e = leer.nextInt();
         leer.nextLine();
 
         //creacion del objeto Paciente
-        Pacientes paciente = new Pacientes(u, d, m, e, n);
-        System.out.println("Total paciente: " + paciente.getIndice());
+        Paciente paciente = new Paciente(u, d, m, e, n);
+        System.out.println("Numero total del paciente: " + paciente.getIndice());
         pq.add(paciente);
-        System.out.println("Longitud: " + pq.size() + ", Vacio: " + pq.isEmpty());
+        pacientes += 1;
+        System.out.println("Longitud: " + pq.size() + ", Vacio: " + pq.isEmpty() + ", Pacientes: " + pacientes);
+    }
+    
+    private static void verificar_cantidad_pacientes(){
+        System.out.println("");
+        int resultado = pacientes % 2;
+        if(resultado != 1){
+            System.out.println("Sacando paciente ya que hay " + pacientes + " paciente/s...");
+            Paciente p = pq.poll();
+            System.out.println("Sacando a...\n" + p.getNombre() + "\nEdad: " + p.getEdad() + "\nIndice: " + p.getIndice());
+            imprimir_cola();
+        }
+    }
+    
+    private static void imprimir_cola(){
+        System.out.println("");
+        int i = 0;
+        System.out.println("ORDEN DE LA COLA...");
+        for(Paciente p : pq){
+            i++;
+            System.out.println("Paciente #" + i + " " + p.getNombre() + ", Edad: " + p.getEdad());
+        }
     }
 }
